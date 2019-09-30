@@ -1,49 +1,66 @@
-#include <stdio.h>
-
-void printNumbers();
-void sumEvens();
-void findMax();
+#include<stdio.h>
+#include<string.h>
+#include"header.h"
 
 int main()
 {
-	printNumbers();
-	sumEvens();
-	//findMax();
+	//basicTypes();
+	//arrayAndPointer();
+	//complexTypes();
+	functionPointers();
 
 	return 0;
 }
 
-void printNumbers()
+void basicTypes()
 {
-    int i;
-    for(i = 1; i <= 10; i++)
-    {
-        printf("%d ", i);
-    }
+	BYTE number = 0;
+	ULONG milliseconds = 3600000;
+	printf("The number is %d\n", number);
+	printf("%lu milliseconds equals %d seconds or %d minutes or %d hour(s)\n",
+		milliseconds, milliseconds/1000, milliseconds/(1000 * 60), milliseconds/(1000*60*60));
 }
 
-void sumEvens()
+void arrayAndPointer()
 {
-	int i = 10;
-	int sum = 0;
-	for(; i < 31; i = i + 2)
-	{
-		sum += i;
-	}
-	printf("The sum of the even numbers between 9 and 31 is %d.\n", sum);
+    STRING bookName = "C Programming Simple Steps";
+	TOWN town;
+	gets(town);
+    printf("%s rocks!\n", town);
+    printf("The name of the book is %s.\n", bookName);
 }
 
-void findMax()
-{	
-	int count, i, currentNumber, max;
-	printf("How many numbers do you want to compare? ");
-	scanf("%d", &count);
-	scanf("%d", &max);
-	for(i = count; i > 1; i--)
-	{
-		scanf("%d", &currentNumber);
-		if(currentNumber > max)
-			max = currentNumber;
-	}
-	printf("The biggest number is %d\n", max);
+void complexTypes()
+{
+	POINT startLocation;
+	DIRECTION goWest;
+	startLocation.x = 0;
+	startLocation.y = 0;
+	goWest = West;
+
+	printf("The X coordinate is %d and the Y coordinate is %d.\n", startLocation.x, startLocation.y);
+}
+
+void functionPointers()
+{
+	void (*pointerToPrintHello)() = &printHello;
+	void (*pointerToPrintMessage)(char*) = &printMessage;
+	VoidFunc_NoArgs testPrintHello = &printHello;
+	VoidFunc_CharArr testPrintMessage = &printMessage;
+
+	pointerToPrintHello();
+	pointerToPrintMessage("Yo, what's up? We call this function through a regular function pointer. The syntax is a mess!");
+
+	testPrintHello();
+	testPrintMessage("Now the printMessage function is called through a pointer, defined, using a typedef alias. Yeah!");
+}
+
+void printHello()
+{
+	printf("Hello!\n");
+}
+
+void printMessage(char *message)
+{
+	printf("%s\n", message);
 }
